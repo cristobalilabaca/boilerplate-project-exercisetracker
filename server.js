@@ -14,7 +14,7 @@ const exerciseSchema = new mongoose.Schema({
 })
 
 const userSchema = new mongoose.Schema({
-  usename: {type: String, required: true},
+  username: {type: String, required: true},
   count: Number,
   log: [exerciseSchema],
 })

@@ -96,6 +96,7 @@ app.get('/api/users/:id/logs', (req, res) => {
       }
       let finalData3 = [];
       if (req.params.limit){
+        console.log(req.params.limit);
         added = 0;
         for (let i = 0; i < finalData2.length; i++) {
           if (added < req.params.limit){

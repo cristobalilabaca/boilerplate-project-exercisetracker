@@ -106,7 +106,8 @@ app.get('/api/users/:id/logs', (req, res) => {
       } else {
         finalData3 = finalData2;
       }
-      res.json({...data, log: finalData3});
+      data.log = finalData3
+      res.json(data);
     }
   })
 })

@@ -74,7 +74,39 @@ app.get('/api/users/:id/logs', (req, res) => {
     if (err) {
       res.json({ error: err});
     } else {
-      res.json(data);
+      let finalData1 = [];
+      if (req.params.from) {
+        for (let i = 0; i < data.log.length; i++) {
+          if (data.log[i].date >= req.params.from){
+            finalData1.push(data.log[i]);
+          };
+        };
+      } else {
+        finalData1 = data.log;
+      };
+      let finalData2 = [];
+      if (req.params.to) {
+        for (let i = 0; i < finalData1.length; i++) {
+          if (finalData1[i].date <= req.params.to) {
+            finalData2.push(finalData1[i]);
+          };
+        };
+      } else {
+        finalData2 = finalData1;
+      }
+      let finalData3 = [];
+      if (req.params.limit){
+        added = 0;
+        for (let i = 0; i < finalData2.length; i++) {
+          if (added < req.params.limit){
+            finalData3.push(data.log[i]);
+            added++;
+          };
+        };
+      } else {
+        finalData3 = finalData2;
+      }
+      res.json({...data, log: finalData3});
     }
   })
 })

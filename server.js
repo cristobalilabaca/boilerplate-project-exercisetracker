@@ -75,9 +75,9 @@ app.get('/api/users/:id/logs', (req, res) => {
       res.json({ error: err});
     } else {
       let finalData1 = [];
-      if (req.params.from) {
+      if (req.query.from) {
         for (let i = 0; i < data.log.length; i++) {
-          if (data.log[i].date >= req.params.from){
+          if (data.log[i].date >= req.query.from){
             finalData1.push(data.log[i]);
           };
         };
@@ -85,9 +85,9 @@ app.get('/api/users/:id/logs', (req, res) => {
         finalData1 = data.log;
       };
       let finalData2 = [];
-      if (req.params.to) {
+      if (req.query.to) {
         for (let i = 0; i < finalData1.length; i++) {
-          if (finalData1[i].date <= req.params.to) {
+          if (finalData1[i].date <= req.query.to) {
             finalData2.push(finalData1[i]);
           };
         };
@@ -95,11 +95,11 @@ app.get('/api/users/:id/logs', (req, res) => {
         finalData2 = finalData1;
       }
       let finalData3 = [];
-      if (req.params.limit){
-        console.log(req.params.limit);
+      if (req.query.limit){
+        console.log(req.query.limit);
         added = 0;
         for (let i = 0; i < finalData2.length; i++) {
-          if (added < req.params.limit){
+          if (added < req.query.limit){
             finalData3.push(data.log[i]);
             added++;
           };

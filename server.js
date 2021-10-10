@@ -74,7 +74,7 @@ app.get('/api/users/:id/logs', (req, res) => {
     if (err) {
       res.json({ error: err});
     } else {
-      res.json({...data, date: data.toDateString()});
+      res.json({...data, date: data});
     }
   })
 })

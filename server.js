@@ -7,20 +7,13 @@ require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const exerciseSchema = new mongoose.Schema({
-  description: String,
-  duration: Number,
-  date: Date
-})
-
 const userSchema = new mongoose.Schema({
   username: {type: String, required: true},
   count: Number,
-  log: [exerciseSchema],
+  log: [{description: String, duration: Number, date: Date}],
 })
 
 const user = mongoose.model('user', userSchema);
-const exercise = mongoose.model('exercise', exerciseSchema);
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}));
@@ -55,7 +48,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
     if (err) {
       res.json({ error: err });
     } else {
-      const newExercise = new exercise({description: req.body.description, duration: req.body.duration})
+      const newExercise = {description: req.body.description, duration: req.body.duration}
       let exDate;
       if (req.body.date) {
         exDate = new Date(req.body.date);
@@ -69,7 +62,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
         if (err) {
           res.json({ error: err});
         } else {
-          res.json({...data, username: userData.username});
+          res.json({...newExercise, username: userData.username, _id: userData._id});
         }
       })
     };

@@ -62,7 +62,7 @@ app.post('/api/users/:id/exercises', (req, res) => {
         if (err) {
           res.json({ error: err});
         } else {
-          res.json({...newExercise, username: userData.username, _id: userData._id});
+          res.json({_id: userData._id, username: userData.username, ...newExercise});
         }
       })
     };

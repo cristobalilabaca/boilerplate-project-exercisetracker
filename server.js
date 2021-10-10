@@ -76,8 +76,11 @@ app.get('/api/users/:id/logs', (req, res) => {
     } else {
       let finalData1 = [];
       if (req.query.from) {
+        const fromDate = new Date(req.query.from)
+        let currentDate;
         for (let i = 0; i < data.log.length; i++) {
-          if (data.log[i].date >= req.query.from){
+          currentDate = new Date(data.log[i].date);
+          if (currentDate >= fromDate){
             finalData1.push(data.log[i]);
           };
         };
@@ -86,8 +89,11 @@ app.get('/api/users/:id/logs', (req, res) => {
       };
       let finalData2 = [];
       if (req.query.to) {
+        const toDate = new Date(req.query.to)
+        let currentDate;
         for (let i = 0; i < finalData1.length; i++) {
-          if (finalData1[i].date <= req.query.to) {
+          currentDate = new Date(finalData1[i].date);
+          if (currentDate <= toDate) {
             finalData2.push(finalData1[i]);
           };
         };
@@ -96,7 +102,6 @@ app.get('/api/users/:id/logs', (req, res) => {
       }
       let finalData3 = [];
       if (req.query.limit){
-        console.log(req.query.limit);
         added = 0;
         for (let i = 0; i < finalData2.length; i++) {
           if (added < req.query.limit){

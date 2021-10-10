@@ -38,7 +38,7 @@ app.route('/api/users')
       if (err) {
         res.json({error: err});
       } else {
-        res.json(data)
+        res.json({username: data.username, _id: data._id})
       }
     })
   })
@@ -74,7 +74,7 @@ app.get('/api/users/:id/logs', (req, res) => {
     if (err) {
       res.json({ error: err});
     } else {
-      res.json({...data, date: data});
+      res.json(data);
     }
   })
 })
